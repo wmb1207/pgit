@@ -64,20 +64,23 @@ module Pgit
   end
 
   def self.run
+
+    main = Main.new
+    
     begin
       OptionParser.new do |opt|
-        opt.on('-n', '--new_key EMAIL') { |email| Main.new.new_key(email); exit 0}
-        opt.on('-ls' '--list_keys') { |_| Main.new.list_keys; exit 0 }
-        opt.on('--local KEY') { |key|  Main.new.local_setup(key); exit 0 }
+        opt.on('-n', '--new_key EMAIL') { |email| main.new_key(email); exit 0}
+        opt.on('-ls' '--list_keys') { |_| main.list_keys; exit 0 }
+        opt.on('--local KEY') { |key|  main.local_setup(key); exit 0 }
         opt.on('-k KEY', '--key KEY') do |key|
           opt.parse!(ARGV)
-          Main.new.run(key, ARGV)
+          main.run(key, ARGV)
           exit 0
         end
       end.parse!
       
       key = File.read("#{Dir.pwd}/.pgit")
-      Main.new.run(key, ARGV[0..-1])
+      main.run(key, ARGV[0..-1])
     rescue => e
       puts e
     end
