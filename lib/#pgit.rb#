@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+
 puts 'no'
 
 require_relative 'pgit/config'
