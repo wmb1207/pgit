@@ -1,15 +1,12 @@
 # frozen_string_literal: true
 
-puts 'no'
-
 require_relative 'pgit/config'
 require_relative 'pgit/runner'
 
 # Entrypoint
 module Pgit
   def self.run
-    puts "hehe"
-    #Config.default_cfg
+    # Config.default_cfg
     CLI.main
   end
 end

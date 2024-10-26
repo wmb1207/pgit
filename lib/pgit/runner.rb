@@ -4,6 +4,7 @@ require_relative './key'
 require_relative './config'
 require 'open3'
 require 'optparse'
+require 'colorize'
 
 
 # Run helper functions
@@ -58,9 +59,9 @@ module CLI
     cmd = ssh_agent_cmd(key, git_cmd)
     stdout, stderr, status = Open3.capture3(cmd)
 
-    raise CMDError stderr unless status.zero?
+    raise CMDError.new(stderr) unless status == 0
 
-    print(stdout)
+    print_lines(stdout)
   end
 
   def self.local_setup(key)
@@ -78,8 +79,8 @@ module CLI
   end
 
   def self.print_line(line)
-    case line
-    when out.include?('new file:')
+    case
+    when line.include?('new file:')
       puts line.light_green
     when line.include?('modified:')
       puts line.yellow

@@ -39,7 +39,6 @@ class Config
 
   def read_config_file
     unstructure_data = YAML.load_file("/Users/#{ENV['USER']}/.pgit/config.yml")
-    puts unstructure_data
 
     raise MissingServicesInCofigFile unless unstructure_data.key?('services')
 
